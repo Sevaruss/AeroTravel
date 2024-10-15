@@ -1,0 +1,74 @@
+{
+	// Используйте IntelliSense, чтобы узнать о возможных атрибутах.
+	// Наведите указатель мыши, чтобы просмотреть описания существующих атрибутов.
+	// Для получения дополнительной информации посетите: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Отладчик Python: main -a CBTC",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "C:\\Projects\\AeroTravel 2\\main.py",
+			"console": "integratedTerminal",
+			"args": ["-a", "CBTC"]
+		},
+		{
+			"name": "Отладчик Python: main -a AERO",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "C:\\Projects\\AeroTravel 2\\main.py",
+			"console": "integratedTerminal",
+			"args": ["-a", "AERO"]
+		},
+		{
+			"name": "Отладчик Python: main -e 321",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "C:\\Projects\\AeroTravel 2\\main.py",
+			"console": "integratedTerminal",
+			"args": ["-e", "321"]
+		},
+		{
+			"name": "Отладчик Python: main -y CBTC -e 321",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "C:\\Projects\\AeroTravel 2\\main.py",
+			"console": "integratedTerminal",
+			"args": ["-y", "CBTC", "-e", "321"]
+		},
+		{
+			"name": "Отладчик Python: main -y CBTC",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "C:\\Projects\\AeroTravel 2\\main.py",
+			"console": "integratedTerminal",
+			"args": ["-y", "CBTC"]
+		},
+		{
+			"name": "Отладчик Python: main -y CBTC -secret -showpass",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "C:\\Projects\\AeroTravel 2\\main.py",
+			"console": "integratedTerminal",
+			"args": ["-y", "CBTC", "-secret", "-showpass"]
+		},
+		{
+			"name": "Отладчик Python: main -h",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "C:\\Projects\\AeroTravel 2\\main.py",
+			"console": "integratedTerminal",
+			"args": ["-h"]
+		},
+		{
+			"name": "Отладчик Python: main -h -secret",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "C:\\Projects\\AeroTravel 2\\main.py",
+//			"program": "${file}",
+			"console": "integratedTerminal",
+			"args": ["-h",  "-secret"]
+//			"args": "${command:pickArgs}"
+		}
+	]
+}

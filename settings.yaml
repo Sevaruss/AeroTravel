@@ -1,0 +1,122 @@
+# Файл настроек должен содержать обязательные объекты:
+#   settings - Базовые настройки прокси
+#   db - Настройки подключения к SQL-серверу приложения
+#   Aeroclub - Агентство
+#   CbtcTravelclick - Агентство
+#   logging_config - настройки для логирования (консоль, файл, почта)
+
+settings:
+  nestleProxy: http://pac.zscaler.net/nestle.com/EUR_proxy.pac
+  proxyIp: 204.79.90.44:8080
+  debug_limit_off: True
+
+db:
+  driver: SQL Server
+  server: rumosd1679\psapp01, 40011
+  database: SAPHR
+
+AeroClub:
+  devUrl: https://beta-integration.aeroclub.ru/hub/profiles/synchronization
+  devSourceUrl: beta-integration.aeroclub.ru
+  url: https://integration.aeroclub.ru/hub/profiles/synchronization
+  sourceUrl: integration.aeroclub.ru
+  username: ru.nestle.com
+  password: gAAAAABi2Pp_lr5WziUilVt-42IpFsL4NS8HrH1rAT-PXtLSTafw8Vh7JIIrI6Un_9VhbgU_IZCJY4pdmGdoAX_pQNg6s81JQQ==
+  userAgent: Nestle Integratoin <Aleksandr.Vinnikov@ru.nestle.com>
+
+  companies:
+    RU12:
+      id: CEREAL_PARTNERS_RUS
+      minCounter: 1
+      storedProc: dbo.GetAeroClubData_RU12
+    
+    RU19:
+      id: NESTLE_KUBAN
+      minCounter: 1
+      storedProc: dbo.GetAeroClubData_RU19
+
+    RU37:
+      id: NESTLE_RUSSIA
+      minCounter: 1
+      storedProc: dbo.GetAeroClubData_RU37
+    
+    RU44:
+      id: ATRIUM_INNOVATIONS
+      minCounter: 1
+      storedProc: dbo.GetAeroClubData_RU44
+
+    RU45:
+      id: NSBS_SAMARA
+      minCounter: 1
+      storedProc: dbo.GetAeroClubData_RU45
+
+CbtcTravelClick:
+  #prdUrl: https://travel-click.ru/rest/api/employees/upload/json
+  url: https://dev.travel-click.ru/rest/api/employees/upload/json
+  username: nestle.api@cbtc.ru
+  #new_prd_pass: gAAAAABmQ0GQxpcpqXf1nYYyPt9JH-bDzBzkG4r8kw4Aac3BPj3Iz79y71k4CI7fb6LfjqScpihPzaG49_tE5um2nOUQLUnIDg==
+  password: gAAAAABi4Mj7hyyUrnZeDOyqKxmGzypKXpDiOA5Qb6pOmD29dE7aTLEhLIZVlhb9xRkKKZaVO6WJesxngLEwungyUrGzvtbV7Q== 
+  minCounter: 1
+  storedProc: dbo.GetCBTCData
+
+  #old_prd_pwd:    gAAAAABi16Mv_km12oSgOUKnCr2gIvz5N5WC4Wnb5g4QQhmL9-eYQredJV-eQL8ZSDMJ4tTEq68VsKuuyJGH1l1MOClxCAUelg==
+  #??pwd:           gAAAAABi37fcaGG5GrnrMLS4gpEKgu-DShOqu30TzaZpwYmAOvuqsu6ogphdU-5vhDX5wEwsWmQouqlKEgkOkXEJHRaWeO1BSwFJWo9Zp2TKGsYjKm3pEnc=
+
+  travel_dev:
+    url: https://dev.travel-click.ru/rest/api/employees/upload/json
+    password: gAAAAABi4Mj7hyyUrnZeDOyqKxmGzypKXpDiOA5Qb6pOmD29dE7aTLEhLIZVlhb9xRkKKZaVO6WJesxngLEwungyUrGzvtbV7Q==
+
+  newUser:
+    password: gAAAAABi2k8qCCgJ-bfXIBEEeBPwjyWSpyEaBLrLzHpcrxTCDnjSzfbvFNMLVbeSsvrzPspQ5Fy9bnwiC5-T5uvJkySKk5LvPQ==
+    holdingUserRole: sbt_manager
+    holdingUserPolicy: HOLDING
+    otherUserPolicy: SELF
+
+  companies:
+    CBTCRU12:
+      id: Сириал Партнерс Рус ООО Пермь
+      confirm: "TRUE"
+      fullUpdate: "FALSE"
+      incrementUpdate: "TRUE"
+
+    CBTCRU37:
+      id: Нестле Россия ООО
+      confirm: "TRUE"
+      fullUpdate: "FALSE"
+      incrementUpdate: "TRUE"
+
+logging_config:
+  version: 1
+  handlers:
+    console:
+      class: logging.StreamHandler
+      formatter: brief
+      level: INFO
+      stream: ext://sys.stdout
+    file:
+      class: logging.handlers.RotatingFileHandler
+      formatter: common
+      level: DEBUG
+      filename: .\logs\AeroTravelLog
+      maxBytes: 1000000
+      backupCount: 10
+    mail:
+      class: logging.handlers.SMTPHandler
+      level: WARNING
+      formatter: common
+      mailhost: smtp.eur.nestle.com
+      fromaddr: RUITBSI@internal.nestle.com
+      toaddrs:
+        - Vsevolod.Russov@ru.nestle.com
+        - Vsevolod.Russov@ru.nestle.com
+      subject: problem with AeroTravel2
+  formatters:
+    brief:
+      format: '%(levelname)s: [%(name)s] > %(message)s'
+    common:
+      format: '%(levelname)s: %(asctime)s - [%(name)s] %(funcName)s:(%(lineno)d) > %(message)s'
+      datefmt: '%Y-%m-%d %H:%M:%S'
+  root:
+    level: DEBUG
+    handlers: [file, console, mail]
+

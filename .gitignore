@@ -1,0 +1,116 @@
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+**/.~*.xlsx#
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+develop-eggs/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+#*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+test/
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+*.pot
+
+### Django ###
+*.log*
+*.log
+*.pyc
+*.pyd
+*.pyx
+
+# settings
+.env
+.fake_*
+.replay_*
+.lock_*
+
+# static & media & logs
+/static/**
+/photos
+/logs/**
+/front
+logs/
+
+/media/**
+!/media/audio
+!/media/audio/reports/
+/media/results/*
+!/media/results
+!.keepme
+
+### IDEA ###
+.idea
+.vs
+#.vscode
+#.vscode/
+*.http
+celerybeat.pid
+celerybeat-schedule
+celerybeat-schedule.db
+
+### compile to exe files ###
+#*.spec
+dist/
+build/
+output/
+sdist/
+compile/
+old/
+
