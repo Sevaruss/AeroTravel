@@ -20,8 +20,8 @@ AeroClub:
   devSourceUrl: beta-integration.aeroclub.ru
   url: https://integration.aeroclub.ru/hub/profiles/synchronization
   sourceUrl: integration.aeroclub.ru
-  username: ru.nestle.com
-  password: gAAAAABi2Pp_lr5WziUilVt-42IpFsL4NS8HrH1rAT-PXtLSTafw8Vh7JIIrI6Un_9VhbgU_IZCJY4pdmGdoAX_pQNg6s81JQQ==
+  username: dummy_user
+  password: gAAAAABnERFzl8C7ZTzdSF0Mhq84YLOsiADHYApRMX_U3SaK5DZNH6MlUEUfnkmY_eOcdfVa_jdvcDZwu-ehPm2vTj84yt4b7g==
   userAgent: Nestle Integratoin <Aleksandr.Vinnikov@ru.nestle.com>
 
   companies:
@@ -51,23 +51,18 @@ AeroClub:
       storedProc: dbo.GetAeroClubData_RU45
 
 CbtcTravelClick:
-  #prdUrl: https://travel-click.ru/rest/api/employees/upload/json
   url: https://dev.travel-click.ru/rest/api/employees/upload/json
-  username: nestle.api@cbtc.ru
-  #new_prd_pass: gAAAAABmQ0GQxpcpqXf1nYYyPt9JH-bDzBzkG4r8kw4Aac3BPj3Iz79y71k4CI7fb6LfjqScpihPzaG49_tE5um2nOUQLUnIDg==
-  password: gAAAAABi4Mj7hyyUrnZeDOyqKxmGzypKXpDiOA5Qb6pOmD29dE7aTLEhLIZVlhb9xRkKKZaVO6WJesxngLEwungyUrGzvtbV7Q== 
+  username: dummy_user
+  password: gAAAAABnERFzl8C7ZTzdSF0Mhq84YLOsiADHYApRMX_U3SaK5DZNH6MlUEUfnkmY_eOcdfVa_jdvcDZwu-ehPm2vTj84yt4b7g==
   minCounter: 1
   storedProc: dbo.GetCBTCData
 
-  #old_prd_pwd:    gAAAAABi16Mv_km12oSgOUKnCr2gIvz5N5WC4Wnb5g4QQhmL9-eYQredJV-eQL8ZSDMJ4tTEq68VsKuuyJGH1l1MOClxCAUelg==
-  #??pwd:           gAAAAABi37fcaGG5GrnrMLS4gpEKgu-DShOqu30TzaZpwYmAOvuqsu6ogphdU-5vhDX5wEwsWmQouqlKEgkOkXEJHRaWeO1BSwFJWo9Zp2TKGsYjKm3pEnc=
-
   travel_dev:
     url: https://dev.travel-click.ru/rest/api/employees/upload/json
-    password: gAAAAABi4Mj7hyyUrnZeDOyqKxmGzypKXpDiOA5Qb6pOmD29dE7aTLEhLIZVlhb9xRkKKZaVO6WJesxngLEwungyUrGzvtbV7Q==
+    password: gAAAAABnERGU7P4u6axkh-J8diGCCoRN2RkTiwxnXEIHrZTMapXoHp8yuKLIO6YSQtl01IjdWnZzOaRn3M2GKNBJxUBYv237-Q==
 
   newUser:
-    password: gAAAAABi2k8qCCgJ-bfXIBEEeBPwjyWSpyEaBLrLzHpcrxTCDnjSzfbvFNMLVbeSsvrzPspQ5Fy9bnwiC5-T5uvJkySKk5LvPQ==
+    password: gAAAAABnERGU7P4u6axkh-J8diGCCoRN2RkTiwxnXEIHrZTMapXoHp8yuKLIO6YSQtl01IjdWnZzOaRn3M2GKNBJxUBYv237-Q==
     holdingUserRole: sbt_manager
     holdingUserPolicy: HOLDING
     otherUserPolicy: SELF
@@ -119,4 +114,5 @@ logging_config:
   root:
     level: DEBUG
     handlers: [file, console, mail]
+
 
