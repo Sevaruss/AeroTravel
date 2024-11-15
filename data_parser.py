@@ -8,6 +8,8 @@ from config import Configuration
 from connect_db import ConnectDB
 
 class DataParser():
+    """Базовый класс всех парсеров.
+    """
     #region константы класса
     FAKE_PERSON = {
         'ru_surname': 'Дубощит',
@@ -42,11 +44,21 @@ class DataParser():
         return datetime.strptime(datestr, '%d.%m.%Y').strftime('%Y-%m-%d') if datestr else ''
 
 class TravelParser(DataParser):
+    """Класс-холдер для работы с ТревелКлик.
+    """
     def __init__(self, config: Configuration) -> None:
         super().__init__(config)
         self.FAKE_PERSON['gender'] = 'MALE'
 
-    def _create_employees_travel(self, list_users):
+    def _create_employees_travel(self, list_users) -> list:
+        """Подготовка списка сотрудников на передачу в агентство, с предварительной проверкой заполнения.
+
+        Args:
+            list_users (list): список сотрудников, полученный из БД.
+
+        Returns:
+            list: подготовленный для JSON-передачи список сотрудников
+        """
         users_list_for_json = list()
         user_except = list()
 
@@ -169,21 +181,67 @@ class TravelParser(DataParser):
 
         return users_list_for_json
 
-    def _travel_answer_analize(self, response_content):
+    def _travel_answer_analize(self, response_content) -> None:
+        """Анализ ответа от агентства.
+
+        Args:
+            response_content (Any): Значение content вернувшегося в Response от запроса
+
+        """
         #region вспомогательные функции
         TYPES_FOR_ERROR = {'ERROR'} # ALL_TYPES={'ERROR', 'WARNING', 'INFO', 'SUCCESS'}
+
         def only_error_items(items) -> bool:
+            """Фильтрация списка ответных сообщений по типу сообщений.
+
+            Args:
+                items (list): список сообщений
+
+            Returns:
+                bool: True если тип сообщения входит в сет TYPES_FOR_ERROR. 
+            """
             for msg in items['importMessages']:
                 if msg['type'] in TYPES_FOR_ERROR:
                     return True
             return False
+        
+        def replace_fio(message_text: str) -> str:
+            """Удаление перс.данных из строки отчета.\n
+            Пока удаляет ФИО отсюда: "...Пользователь ФИО уже...".
+
+            Args:
+                message_text (str): изначальная строка
+
+            Returns:
+                str: итоговая строка
+            """
+            points_between = [
+                ('Пользователь', 'уже') #Пользователь ФИО уже существует в другой организации, перемещение запрещено настройками вашей организации
+            ]
+            for point in points_between:
+                idx1 = message_text.find(point[0])
+                if idx1 != -1: # нашли 
+                    idx1 += len(point[0]) + 1
+                    idx2 = message_text.find(point[1], idx1)
+                    if idx2 != -1:
+                        return f'{message_text[0:idx1]}{message_text[idx2:]}'
+            return message_text
 
         def make_message_lines(employees, types):
+            """Генерация списка строк для отчета по результату запроса
+
+            Args:
+                employees (list): список сообщений по каждому сотруднику
+                types (_type_): типы выводимых в отчет ошибок (остальные не войдут в результирующий список)
+
+            Returns:
+                list: список со строками отчета
+            """
             message_lines = list()
             for employee in employees:
                 for msg in employee['importMessages']:
                     if msg['type'] in types:
-                        message_lines.append(f"Для табельного номера '{employee['tabNum']}' сообщение типа '{msg['type']}': {msg['text']}.")
+                        message_lines.append(f"Для табельного номера '{employee['tabNum']}' сообщение типа '{msg['type']}': {replace_fio(msg['text'])}.")
             return message_lines if len(message_lines)>0 else None
         #endregion вспомогательные функции
 
@@ -201,6 +259,9 @@ class TravelParser(DataParser):
                 self.logger.error('\n'.join(message_lines))
                     
     def travel_agent(self) -> None:
+        """Основная функция обработки.\n
+        Получения информации, подготовка, оправка запроса, получение ответа, анализ и выдача результата.
+        """
         agency = self.config.settings.CbtcTravelClick
         agency_name = 'CBTC Travel-Click'
         min_counter, procedure = agency.minCounter, agency.storedProc
@@ -256,6 +317,8 @@ class TravelParser(DataParser):
                     self._travel_answer_analize(response_content)
 
 class AeroParser(DataParser):
+    """Класс-холдер для работы с АэроТревел.
+    """
     def __init__(self, config: Configuration) -> None:
         super().__init__(config)
 
@@ -846,6 +909,9 @@ class AeroParser(DataParser):
         return tree
 
     def aero_agent(self) -> None:
+        """Основная функция обработки.\n
+        Получения информации, подготовка, оправка запроса, получение ответа, анализ и выдача результата.
+        """
         agency = self.config.settings.AeroClub
         agency_name = 'AeroClub'
         companies = agency.companies
