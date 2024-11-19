@@ -1,6 +1,6 @@
 import logging
 from data_parser import TravelParser, AeroParser
-from config import Configuration, setupLogging
+from config import Configuration, setupLogging, prog_name, prog_version, prog_version_date
 
 def main():
     config = Configuration()
@@ -11,7 +11,7 @@ def main():
         config.print_old_or_save_new_pass()
         return
     
-    logger.info("Приложение запущено.")
+    logger.info(f'Приложение запущено. {prog_name}, версия: {prog_version}, {prog_version_date}.')
     if config.agency == Configuration.AGENCY_CBTC:
         TravelParser(config).travel_agent()
     elif config.agency == Configuration.AGENCY_AERO:
