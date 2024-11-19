@@ -10,6 +10,10 @@ settings:
   proxyIp: 204.79.90.44:8080
   debug_limit_off: True
 
+smtp:
+  mailuser: dummy_mailuser
+  password: gAAAAABnERFzl8C7ZTzdSF0Mhq84YLOsiADHYApRMX_U3SaK5DZNH6MlUEUfnkmY_eOcdfVa_jdvcDZwu-ehPm2vTj84yt4b7g==
+
 db:
   driver: SQL Server
   server: rumosd1679\psapp01, 40011
@@ -99,12 +103,14 @@ logging_config:
       class: logging.handlers.SMTPHandler
       level: WARNING
       formatter: common
-      mailhost: smtp.eur.nestle.com
+      mailhost: ['smtp.nestlesoft.net', 587]
+      credentials: ['DoNotUseUserNameHere', 'SetEncriptedPassInSMTPSection']
+      secure: []
       fromaddr: RUITBSI@internal.nestle.com
       toaddrs:
         - Vsevolod.Russov@ru.nestle.com
         - Vsevolod.Russov@ru.nestle.com
-      subject: problem with AeroTravel2
+      subject: problem with AeroTravel
   formatters:
     brief:
       format: '%(levelname)s: [%(name)s] > %(message)s'
